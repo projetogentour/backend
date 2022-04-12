@@ -15,33 +15,34 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Entity
-@Table(name= "tb_usuario")
+@Table(name = "tb_usuario")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Email
+
+	@Schema(example = "email@email.com.br")
+	@NotNull(message = "O atributo Usuário é Obrigatório!")
+	@Email(message = "O atributo Usuário deve ser um email válido!")
 	private String emailUsuario;
-	
+
 	@NotNull
-	
+
 	private String senha;
-	
-	
-	@Size(min=4, max=60)
+
+	@Size(min = 4, max = 60)
 	private String nome;
-	
-	
-	@Size(min=20, max=2500)
+
+	@Size(min = 20, max = 2500)
 	private String dadosPessoais;
-	
-	
-	@Size(min=20, max = 100)
+
+	@Size(min = 20, max = 100)
 	private String dadosPagamento;
-	
+
 	public List<Produto> getProduto() {
 		return produto;
 	}
@@ -51,7 +52,7 @@ public class Usuario {
 	}
 
 	private String foto;
-	
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("usuario")
 	private List<Produto> produto;
@@ -111,8 +112,5 @@ public class Usuario {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-
-
-	
 
 }
