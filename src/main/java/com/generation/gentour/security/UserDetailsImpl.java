@@ -18,7 +18,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	public UserDetailsImpl(Usuario usuario) {
 
-		userName = usuario.getEmailUsuario();// nao estamos usando Usuario como login
+		userName = usuario.getUsuario();
 		password = usuario.getSenha();
 	}
 

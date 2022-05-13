@@ -11,7 +11,7 @@ import com.generation.gentour.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	//public List<Usuario> findAllByNomeCompletoContainingIgnoreCase(String nomeCompleto);
-	public Optional<Usuario> findByEmailUsuario(String emailUsuario); //security 
+	public Optional<Usuario> findByUsuario(String usuario); //security 
 
 }
 

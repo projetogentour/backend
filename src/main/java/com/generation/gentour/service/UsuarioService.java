@@ -21,7 +21,7 @@ public class UsuarioService {
 	private UsuarioRepository repository;
 	
 	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
-		if (repository.findByEmailUsuario(usuario.getEmailUsuario()).isPresent())
+		if (repository.findByUsuario(usuario.getUsuario()).isPresent())
 			return Optional.empty();
 
 		usuario.setSenha(criptografarSenha(usuario.getSenha()));
@@ -32,7 +32,7 @@ public class UsuarioService {
 	public Optional<Usuario> atualizarUsuario(Usuario usuario) {
 
 		if (repository.findById(usuario.getId()).isPresent()) {
-			Optional<Usuario> buscaUsuario = repository.findByEmailUsuario(usuario.getNome());
+			Optional<Usuario> buscaUsuario = repository.findByUsuario(usuario.getNomeCompleto());
 
 			if (buscaUsuario.isPresent()) {
 				if (buscaUsuario.get().getId() != usuario.getId())
@@ -46,15 +46,16 @@ public class UsuarioService {
 	
 	public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin) {
 
-		Optional<Usuario> usuario = repository.findByEmailUsuario(usuarioLogin.get().getUsuario());
+		Optional<Usuario> usuario = repository.findByUsuario(usuarioLogin.get().getUsuario());
 
 		if (usuario.isPresent()) {
 			if (compararSenhas(usuarioLogin.get().getSenha(), usuario.get().getSenha())) {
 
 				usuarioLogin.get().setId(usuario.get().getId());
-				usuarioLogin.get().setNome(usuario.get().getNome());//usuario usamos Nome Completo
+				usuarioLogin.get().setNome(usuario.get().getNomeCompleto());
 				usuarioLogin.get().setToken(gerarBasicToken(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha()));
 				usuarioLogin.get().setSenha(usuario.get().getSenha());
+				usuarioLogin.get().setTipo(usuario.get().getTipo());
 
 				return usuarioLogin;
 			}

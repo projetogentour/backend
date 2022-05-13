@@ -18,13 +18,12 @@ public class SwaggerConfig {
 	public OpenAPI springGenTouropenApi() {
 		return new OpenAPI()
 				.info(new Info().title("Projeto integrador").description("projeto integrador - Generation Brasil")
-						.version("v0.01")
-						.license(new License().name("Generation Brasil").url("https://brazil.generation.org//"))
-						.contact(new Contact().name("GenTour").url("https://github.com/Projeto-Integrador-Gen-Tour")
-								.email("projetogentur@gmail.com")))
+				.version("v0.01")
+				.license(new License().name("Generation Brasil").url("https://brazil.generation.org//"))
+				.contact(new Contact().name("GenTour").url("https://github.com/Projeto-Integrador-Gen-Tour")
+				.email("projetogentur@gmail.com")))
 				.externalDocs(new ExternalDocumentation().description("Github")
-						.url("https://github.com/Projeto-Integrador-Gen-Tour"));
-
+				.url("https://github.com/Projeto-Integrador-Gen-Tour"));
 	}
 
 	@Bean
@@ -40,12 +39,10 @@ public class SwaggerConfig {
 				apiResponses.addApiResponse("401", createApiResponse("Acesso Não Autorizado"));
 				apiResponses.addApiResponse("404", createApiResponse("Objeto Não Encontrado!"));
 				apiResponses.addApiResponse("500", createApiResponse("Erro Na Aplicação"));
-
 			}));
 		};
-		
-
 	}
+	
 	private ApiResponse createApiResponse(String message) {
 		return new ApiResponse().description(message);
 	}
